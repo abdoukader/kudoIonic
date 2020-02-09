@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar  color="primary">
+    <ion-title class="ion-text-center">Inscription</ion-title>
+    <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="loginForm" *ngIf="!isLoading">
+     
+        <ion-card-content>
+            <form #f="ngForm" (ngSubmit)="inscription(f.value)">
+                <p class="wall">DJADIEUF WALL</p>
+                <ion-item>
+                    <ion-label position="floating">Nom</ion-label>
+                    <ion-input type="text" name="nom" ngModel></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Email</ion-label>
+                    <ion-input type="text" name="email" ngModel></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Tel</ion-label>
+                    <ion-input type="number" name="tel" ngModel></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">SousStructure</ion-label>
+                    <ion-input type="text" name="sousStructure" ngModel></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Username</ion-label>
+                    <ion-input type="text" name="username" ngModel></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Mot de passe</ion-label>
+                    <ion-input type="password" name="password" ngModel></ion-input>
+                </ion-item>
+                <br>
+                <ion-button type="submit" expand="block" fill="outline" class="btnLogin">S'inscrire</ion-button>
+                
+            </form>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
