@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+//import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-//import { JwtHelperService } from '@auth0/angular-jwt';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { from } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,10 @@ export class AuthService {
   roles: Array<string>;
 
 
-  // tslint:disable-next-line: variable-name
-  private _loginUrl = 'http://localhost:8080/authenticate';
+ 
+  private _loginUrl = "http://localhost:8080/authenticate";
 
-  // tslint:disable-next-line: variable-name
+
   constructor(private http: HttpClient, private _router: Router) { }
 
   loginUser(data) {
@@ -27,7 +28,7 @@ export class AuthService {
   }
 
   loggedIn() {
-    // tslint:disable-next-line: whitespace
+   
     return !!localStorage.getItem('token');
   }
   // methode de deconnexion
@@ -48,6 +49,19 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  // gettoken() {
+  //   return new Promise((resolve, reject) => {
+  //       let headers = new Headers();
+  //       headers.append('Authorization','token'),
+  //         this.http.get(this._loginUrl+'token/auth',{})
+  //         .subscribe(res => {
+  //           console.log('ok');
+  //         }, (err) => {
+  //           reject(err);
+  //         });
+  //   });
+  // }
+
   saveToken(jwt: string) {
     localStorage.setItem('token', jwt);
     this.jwt = jwt;
@@ -55,11 +69,11 @@ export class AuthService {
   }
 
   parseJWT() {
-    //const jwtHelper = new JwtHelperService();
-    //const objJWT = jwtHelper.decodeToken(this.jwt);
-    //this.username = objJWT.obj;
-    //this.roles = objJWT.roles;
-    //console.log(objJWT);
+    const jwtHelper = new JwtHelperService();
+    const objJWT = jwtHelper.decodeToken(this.jwt);
+    this.username = objJWT.obj;
+    this.roles = objJWT.roles;
+    console.log(objJWT);
   }
 
   isAdmin() {
@@ -69,13 +83,9 @@ export class AuthService {
   isUser() {
     return this.roles.indexOf('ROLE_USER') >= 0;
   }
-  // vous pouvez vous authentifier soit user soit admin cela depant de votre status
   isAuthenticated() {
-    return this.roles && (this.isAdmin()|| this.isUser());
+    return this.roles && (this.isAdmin() || this.isUser() );
   }
-
-  // cette methode va nous permettre à chaque fois qu'on actualise la page
-  // qu'on ne puisse pas s'authentifier à nouveau
   loadToken() {
     this.jwt = localStorage.getItem('token');
     this.parseJWT();

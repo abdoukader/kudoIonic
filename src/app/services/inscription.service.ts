@@ -19,12 +19,13 @@ export class InscriptionService  {
   
       const formData1: FormData = new FormData();
 
-      formData1.append('nom',formData.nom);
       formData1.append('email',formData.email);
-      formData1.append('tel',formData.tel)
-      formData1.append('sousStructure',formData.sousStructure);
+      formData1.append('nom',formData.nom);
       formData1.append('username',formData.username);
       formData1.append('password',formData.password);
+      formData1.append('telephone',formData.tel)
+      formData1.append('structure',formData.sousStructure);
+      
       console.log(formData1);
       
       return this.http.post(this.endpoint, formData1);

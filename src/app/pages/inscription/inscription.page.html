@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Searchbar</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core@4.7.4/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core@4.7.4/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core@4.7.4/css/ionic.bundle.css"/>
+  <style>
+    
+  </style>
+</head>
+
 <ion-header>
   <ion-toolbar  color="primary">
     <ion-title class="ion-text-center">Inscription</ion-title>
@@ -8,26 +22,19 @@
 </ion-header>
 
 <ion-content>
+    
   <ion-card class="loginForm" *ngIf="!isLoading">
      
         <ion-card-content>
-            <form #f="ngForm" (ngSubmit)="inscription(f.value)">
+            <!-- <form #f="ngForm" (ngSubmit)="inscription(f.value)"> -->
                 <p class="wall">DJADIEUF WALL</p>
+                <ion-item>
+                    <ion-label position="floating">Email</ion-label>
+                    <ion-input type="email" name="email" ngModel></ion-input>
+                </ion-item>
                 <ion-item>
                     <ion-label position="floating">Nom</ion-label>
                     <ion-input type="text" name="nom" ngModel></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-label position="floating">Email</ion-label>
-                    <ion-input type="text" name="email" ngModel></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-label position="floating">Tel</ion-label>
-                    <ion-input type="number" name="tel" ngModel></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-label position="floating">SousStructure</ion-label>
-                    <ion-input type="text" name="sousStructure" ngModel></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label position="floating">Username</ion-label>
@@ -37,10 +44,56 @@
                     <ion-label position="floating">Mot de passe</ion-label>
                     <ion-input type="password" name="password" ngModel></ion-input>
                 </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Tel</ion-label>
+                    <ion-input type="number" name="telephone" ngModel></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-header translucent>
+                            <ion-toolbar>
+                              <ion-title>structure</ion-title>
+                            </ion-toolbar>
+                            <ion-toolbar>
+                              <ion-searchbar></ion-searchbar>
+                            </ion-toolbar>
+                          </ion-header>
+                          <ion-content fullscreen>
+                        <ion-list>
+                            <ion-item>DSI/DAC/CEO</ion-item>
+                            <ion-item>DSI/DAC/DIF</ion-item>
+                            <ion-item>DSI/DAC/CES</ion-item>
+                            <ion-item>DSI/SMC/SMC</ion-item>
+                            <ion-item>DSI/EAI/EAI</ion-item>
+                            <ion-item>DSI/2AI/2AI</ion-item>
+                            <ion-item>DSI/INS/INS</ion-item>
+                            <ion-item>DSI/APS</ion-item>
+                            <ion-item>DSI/ILAB</ion-item>
+                            <ion-item>DSI/OCIO</ion-item>
+                            <ion-item>DSI/CSPS</ion-item>
+                        </ion-list>
+                    </ion-content>
+                </ion-item>
                 <br>
                 <ion-button type="submit" expand="block" fill="outline" class="btnLogin">S'inscrire</ion-button>
-                
-            </form>
         </ion-card-content>
     </ion-card>
 </ion-content>
+
+<script>
+    const searchbar = document.querySelector('ion-searchbar');
+    const items = Array.from(document.querySelector('ion-list').children);
+
+    searchbar.addEventListener('ionInput', handleInput);
+
+    function handleInput(event) {
+      const query = event.target.value.toLowerCase();
+      requestAnimationFrame(() => {
+        items.forEach(item => {
+          const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
+          item.style.display = shouldShow ? 'block' : 'none';
+        });
+      });
+    }
+  </script>
+
+</html>

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService} from '../../services/auth.service'
+import { AuthService } from '../../services/auth.service';
 import { AlertController } from '@ionic/angular';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -17,9 +16,9 @@ export class LoginPage implements OnInit {
 
   async presentAlertError() {
     const alert = await this.alertController.create({
-      header: 'connexion reussie', 
-      subHeader: 'vous pouvez faire un kudo',
-      //message: 'connexion non reussie',
+      header: 'connexion reussie',
+      subHeader: 'KUDOWALL',
+      message: 'connexion non reussie',
       buttons: ['OK']
     });
 
@@ -38,12 +37,11 @@ onLogin(data) {
       let jwt = (res.token);
         // tslint:disable-next-line: align
         this._auth.saveToken(jwt);
-        // une fois que je suis authentifier je suis dan home
 
         
       this._router.navigate(['/kudo']);
       },
-      // err => console.log(err)
+       err => console.log(err)
     );
   }
 
@@ -52,6 +50,7 @@ onLogin(data) {
   isAdmin() {
     return this._auth.isAdmin();
   }
+
 
   isUser() {
     return this._auth.isUser();
