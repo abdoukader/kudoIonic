@@ -30,18 +30,20 @@ import { AlertController } from '@ionic/angular';
     ngOnInit(){
 
     }
-    inscription(data){
-        this.inscrip.inscription(data)
+    inscription(Data){
+        this.inscrip.inscription(Data)
         .subscribe(
             res => {
                 this.presentAlertError()
-                window.confirm('inscription echouée');
+                window.confirm('inscription réussie');
                 console.log(res);
             },
             err=> {
-                window.confirm('inscription réussie')
+                window.confirm('inscription echouée')
+                console.log(err);
             }
         );
+        console.log(Data);
     }
 
     async presentAlertError() {
@@ -50,7 +52,8 @@ import { AlertController } from '@ionic/angular';
           subHeader: 'KUDO WALL',
           message: 'inscription reussie',
           buttons: ['OK']
+        
         });
-    
+    return alert;
     }
 }
